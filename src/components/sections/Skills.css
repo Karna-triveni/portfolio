@@ -1,0 +1,94 @@
+/* ============================================
+   SKILLS
+   ============================================ */
+.skills__groups {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* Category header */
+.skills__category-label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.skills__category-icon { font-size: 1rem; }
+
+.skills__category-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--clr-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Skills grid */
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.625rem;
+}
+
+/* Skill chip */
+.skill-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 0.9rem;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.skill-chip:hover {
+  border-color: var(--clr-primary-md);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.skill-chip__icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.skill-chip__name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--clr-text-2);
+}
+
+/* Exploring variant — dashed amber */
+.skill-chip--exploring {
+  border-style: dashed;
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+
+.skill-chip--exploring .skill-chip__name {
+  color: var(--clr-amber);
+}
+
+.skill-chip--exploring:hover {
+  border-color: #fcd34d;
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.12);
+}
+
+/* Exploring footnote */
+.skills__exploring-note {
+  margin-top: 0.625rem;
+  font-size: 0.78rem;
+  color: var(--clr-text-dim);
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .skills__grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+}
