@@ -2,12 +2,14 @@ import { useState, useEffect, useCallback } from 'react';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  { label: 'Home',     href: '#hero' },
-  { label: 'About',    href: '#about' },
-  { label: 'Skills',   href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Learning', href: '#learning' },
-  { label: 'Contact',  href: '#contact' },
+  { label: 'Home',          href: '#hero' },
+  { label: 'About',         href: '#about' },
+  { label: 'Skills',        href: '#skills' },
+  { label: 'Projects',      href: '#projects' },
+  { label: 'Internship',    href: '#internship' },
+  { label: 'Education',     href: '#education' },
+  { label: 'Certifications',href: '#certifications' },
+  { label: 'Contact',       href: '#contact' },
 ];
 
 export default function Navbar() {
@@ -15,14 +17,12 @@ export default function Navbar() {
   const [scrolled, setScrolled]    = useState(false);
   const [activeSection, setActive] = useState('hero');
 
-  /* Scroll shadow */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  /* Active section via IntersectionObserver */
   useEffect(() => {
     const ids = NAV_LINKS.map(l => l.href.slice(1));
     const observer = new IntersectionObserver(
@@ -36,9 +36,8 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  /* Close mobile menu on resize */
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth > 768) setMenuOpen(false); };
+    const onResize = () => { if (window.innerWidth > 900) setMenuOpen(false); };
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
@@ -48,25 +47,19 @@ export default function Navbar() {
     setMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
-      const top = target.getBoundingClientRect().top + window.scrollY - (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 64);
-      window.scrollTo({ top, behavior: 'smooth' });
+      const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 64;
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - navH, behavior: 'smooth' });
     }
   }, []);
 
   return (
     <header className={`navbar${scrolled ? ' navbar--scrolled' : ''}`} role="banner">
       <nav className="navbar__inner container" aria-label="Main navigation">
-        {/* Logo */}
-        <a
-          href="#hero"
-          className="navbar__logo"
-          onClick={e => smoothScroll(e, '#hero')}
-          aria-label="Triveni Karna – back to top"
-        >
-          Triveni Karna
+        <a href="#hero" className="navbar__logo" onClick={e => smoothScroll(e, '#hero')} aria-label="Triveni Karna – back to top">
+          <span className="navbar__logo-name">Triveni Karna</span>
+          <span className="navbar__logo-role">Java Full Stack</span>
         </a>
 
-        {/* Desktop links */}
         <ul className="navbar__links" role="list">
           {NAV_LINKS.map(({ label, href }) => (
             <li key={href}>
@@ -75,33 +68,32 @@ export default function Navbar() {
                 className={`navbar__link${activeSection === href.slice(1) ? ' navbar__link--active' : ''}`}
                 onClick={e => smoothScroll(e, href)}
                 aria-current={activeSection === href.slice(1) ? 'page' : undefined}
-              >
-                {label}
-              </a>
+              >{label}</a>
             </li>
           ))}
         </ul>
 
-        {/* Hamburger */}
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=karnatriveni43@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn--primary btn--sm navbar__cta"
+        >
+          Hire Me
+        </a>
+
         <button
           className={`navbar__hamburger${menuOpen ? ' navbar__hamburger--open' : ''}`}
           onClick={() => setMenuOpen(o => !o)}
-          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span /><span /><span />
         </button>
       </nav>
 
-      {/* Mobile menu */}
-      <div
-        id="mobile-menu"
-        className={`navbar__mobile${menuOpen ? ' navbar__mobile--open' : ''}`}
-        aria-hidden={!menuOpen}
-      >
+      <div id="mobile-menu" className={`navbar__mobile${menuOpen ? ' navbar__mobile--open' : ''}`} aria-hidden={!menuOpen}>
         <ul role="list">
           {NAV_LINKS.map(({ label, href }) => (
             <li key={href}>
@@ -111,11 +103,20 @@ export default function Navbar() {
                 onClick={e => smoothScroll(e, href)}
                 tabIndex={menuOpen ? 0 : -1}
                 aria-current={activeSection === href.slice(1) ? 'page' : undefined}
-              >
-                {label}
-              </a>
+              >{label}</a>
             </li>
           ))}
+          <li>
+            <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=karnatriveni43@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn--primary navbar__mobile-cta"
+                tabIndex={menuOpen ? 0 : -1}
+              >
+                Hire Me
+              </a>
+          </li>
         </ul>
       </div>
     </header>

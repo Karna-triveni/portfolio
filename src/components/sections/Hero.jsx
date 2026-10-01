@@ -5,12 +5,8 @@ export default function Hero() {
     e.preventDefault();
     const target = document.querySelector(href);
     if (target) {
-      const navH =
-        parseInt(
-          getComputedStyle(document.documentElement).getPropertyValue('--nav-height')
-        ) || 64;
-      const top = target.getBoundingClientRect().top + window.scrollY - navH;
-      window.scrollTo({ top, behavior: 'smooth' });
+      const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 60;
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - navH, behavior: 'smooth' });
     }
   };
 
@@ -18,25 +14,20 @@ export default function Hero() {
     <section className="hero" id="hero" aria-label="Introduction">
       <div className="container hero__inner">
 
-        {/* ── Left: text ── */}
+        {/* ── Left ── */}
         <div className="hero__content">
-          <p className="hero__eyebrow">Hi, I&apos;m</p>
+          <p className="hero__eyebrow">Java Full Stack Developer</p>
 
-          <h1 className="hero__name">
-            Triveni <span>Karna</span>
-          </h1>
+          <h1 className="hero__name">Triveni Karna</h1>
 
-          <p className="hero__role">
-            2026 Computer Science Engineering Graduate
+          <p className="hero__meta">
+            Fresher&nbsp;&nbsp;·&nbsp;&nbsp;2026 CSE Graduate&nbsp;&nbsp;·&nbsp;&nbsp;Hyderabad
           </p>
 
-          <div className="hero__divider" aria-hidden="true"></div>
-
           <p className="hero__description">
-            Interested in Web Development &amp; Java Full Stack Development.
-            I have been learning Java, Spring Boot, React and related
-            technologies, and I am looking for an opportunity to apply these
-            skills in a professional environment.
+            2026 Computer Science Engineering graduate with hands-on experience
+            in Java, Spring Boot, REST APIs, MySQL and React.js. Seeking an
+            entry-level Java Full Stack Developer role.
           </p>
 
           <div className="hero__actions">
@@ -48,31 +39,32 @@ export default function Hero() {
               View Projects
             </a>
             <a
-              href="#contact"
+              href="/Triveni_Karna_Resume.pdf"
               className="btn btn--outline"
-              onClick={e => smoothScroll(e, '#contact')}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Download Resume PDF"
+            >
+              Download Resume
+            </a>
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=karnatriveni43@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--ghost"
             >
               Contact Me
             </a>
           </div>
         </div>
 
-        {/* ── Right: real profile photo ── */}
+        {/* ── Right: photo ── */}
         <div className="hero__photo-wrap">
-          <div className="hero__photo-frame">
-            <img
-              src="/profile.png"
-              alt="Triveni Karna"
-              className="hero__photo-img"
-            />
-            <span className="hero__photo-badge">
-              <span
-                className="status-dot status-dot--green"
-                aria-hidden="true"
-              ></span>
-              Open to Work
-            </span>
-          </div>
+          <img
+            src="/profile.png"
+            alt="Triveni Karna – Java Full Stack Developer"
+            className="hero__photo"
+          />
         </div>
 
       </div>
